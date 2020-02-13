@@ -3,21 +3,18 @@
 
 ## 搜狗下载词库
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
-[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
-[![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
-[![](https://img.shields.io/badge/项目-搜狗库爬取-black.svg)]()
 
 ## 安装
-    pip install jtyoui
+    pip install pyunit-sogou
 
 ## 运行代码
 ```python
-from jtyoui.sogou import SoGou
+from pyunit_sogou import SoGou
 
  # 下载具体的一个
 if __name__ == '__main__':
-    sg = SoGou('动物')  # 获取搜索关键字下的词库
-    for s in sg.load_url:  # 遍历关键字下的URL
+    sg = SoGou()  # 获取搜索关键字下的词库
+    for s in sg.search_name(search_name='动物'):  # 遍历关键字下的URL
         print(s)
         '''
         https://pinyin.sogou.com/d/dict/download_cell.php?id=15206&name=动物词汇大全【官方推荐】
@@ -80,27 +77,18 @@ if __name__ == '__main__':
         https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称
         https://pinyin.sogou.com/d/dict/download_cell.php?id=28826&name=鰟鮍类，鱊类
         '''
-    txt = sg.load_word(' https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称')  # 选择具体的下载词库链接
+    txt = sg.url_to_text(' https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称')  # 选择具体的下载词库链接
     print(txt)  # 打印
   
 ```
 
-### 搜索到的全部下载（支持模糊搜索）
-```python
-from jtyoui.sogou import SoGou
-if __name__ == '__main__':
-    sg = SoGou('蟋蟀名称')  # 获取搜索关键字下的词库
-    txt = sg.load_word()  # 下载动物类全部信息
-    print(txt)  # 打印
-        
-```
+## 搜索到的全部下载（支持模糊搜索）
+
 
 #### 打印格式：是一个键值对。键是词库名，值的词库内容
 
     {'动物词汇大全【官方推荐】': ['阿比西尼亚猫', '阿博胡鲶', '阿勃劳棱鲱'....]}
 
-### 搜狗词库表
-[点击查询搜狗词库表](https://gitee.com/tyoui/word)    
-    
 
+***
 [1]: https://blog.jtyoui.com
