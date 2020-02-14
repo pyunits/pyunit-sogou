@@ -14,7 +14,7 @@ from pyunit_sogou import SoGou
  # 下载具体的一个
 if __name__ == '__main__':
     sg = SoGou()  # 获取搜索关键字下的词库
-    for s in sg.search_name(search_name='动物'):  # 遍历关键字下的URL
+    for s in sg.search_name_lexicon(search_name='动物'):  # 遍历关键字下的URL
         print(s)
         '''
         https://pinyin.sogou.com/d/dict/download_cell.php?id=15206&name=动物词汇大全【官方推荐】
@@ -77,18 +77,53 @@ if __name__ == '__main__':
         https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称
         https://pinyin.sogou.com/d/dict/download_cell.php?id=28826&name=鰟鮍类，鱊类
         '''
-    txt = sg.url_to_text(' https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称')  # 选择具体的下载词库链接
+    txt = sg.download_to_text(' https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称')  # 选择具体的下载词库链接
     print(txt)  # 打印
   
 ```
 
 ## 搜索到的全部下载（支持模糊搜索）
+```python
+from pyunit_sogou import SoGou
+
+if __name__ == '__main__':
+    """测试搜索关键词来下载词库"""
+    sg = SoGou()  # 获取搜索关键字下的词库
+    res = sg.search_name_lexicon('化学')
+    for url in res:  # 遍历关键字下的URL
+        print(url)
+        txt = sg.download_to_text(url)  # 下载
+        print(txt)  # 打印
+        break
+```
+
+## 下载某一个分类
+```python
+from pyunit_sogou import SoGou
+
+if __name__ == '__main__':
+    """测试下载词库分类"""
+    sg = SoGou()
+    one = sg.one_classify_lexicon('https://pinyin.sogou.com/dict/cate/index/13')  # 化学分类
+    for url in one:
+        print(url)
+        txt = sg.download_to_text(url)  # 下载
+        print(txt)  # 打印
+        break
+```
 
 
-#### 打印格式：是一个键值对。键是词库名，值的词库内容
+### 打印格式：是一个键值对。键是词库名，值的词库内容
 
     {'动物词汇大全【官方推荐】': ['阿比西尼亚猫', '阿博胡鲶', '阿勃劳棱鲱'....]}
 
+# TODO
+- [x] 支持链接下载
+- [x] 支持scel转txt格式
+- [x] 支持模糊搜索名称下载
+- [x] 支持分类下载
+- [x] 支持保存txt格式和scel格式
+- [x] ~~支持保持excel文件~~
 
 ***
 [1]: https://blog.jtyoui.com
